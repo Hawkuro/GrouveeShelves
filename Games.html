@@ -6,6 +6,9 @@
 </head>
 <body>
 	<style type="text/css" media="screen">
+		body {
+			margin:0;
+		}
 		.grouvee_container {
 		/* customize grid container div here. eg: width: 500px; */
 			max-width:90px;
@@ -51,13 +54,43 @@
 		    display: flex;
 		    justify-content: center;
 		    max-width: 1000px;
-		    margin: auto;
+		    margin: 10px auto;
+		}
+		/*Following is edited version of CSS from https://codepen.io/FelipeMartinin/pen/uFnhf*/
+		#tab_bar {
+			font-family: arial, sans-serif;
+			border-bottom: 1px solid grey;
+			width: 100%;
+			overflow: hidden;
+			height: 50px;
+			line-height: 50px;
+		    display: flex;
+		    justify-content: center;
+		}
+		#tab_bar>.tabmenu {
+			float: left;
+			background: white;
+			color: #777777;
+			height: 45px;
+			margin: 2px 15px 0;
+			padding: 0 15px;
+			cursor: pointer;
+			text-decoration:none;
+			border-bottom: 3px solid white;
+		}
+		#tab_bar>.tabmenu.active {
+			color: #dd4b39;
+			border-bottom: 3px solid #dd4b39;
+		}
+		#tab_bar .panels .panel {
+			padding: 20px 10px;
+			display: none;
 		}
 	</style>
-	<ul>
-		<li><a href="javascript:rudrSwitchTab('tb_1', 'active_games');" id="tb_1" class="tabmenu active">Active</a></li>
-		<li><a href="javascript:rudrSwitchTab('tb_2', 'archived_games');" id="tb_2" class="tabmenu">Archived</a></li>
-	</ul>
+	<div id="tab_bar">
+		<a href="javascript:rudrSwitchTab('tb_1', 'active_games');" id="tb_1" class="tabmenu active">Active</a>
+		<a href="javascript:rudrSwitchTab('tb_2', 'archived_games');" id="tb_2" class="tabmenu">Archived</a>
+	</div>
 	<div class="tabcontent" id="active_games">
 		<div class="grouvee_box">
 			<div id="grouvee_widget_141977">
