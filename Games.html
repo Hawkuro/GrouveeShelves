@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Games list</title>
+	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+	<style type="text/css" media="screen">
+		.grouvee_container {
+		/* customize grid container div here. eg: width: 500px; */
+			max-width:90px;
+	    }
+
+	    .grouvee_game {
+	     	/* customize game cover container div here */
+	      	float: left;
+	      	width: 90px;
+	    	height: 90px;
+	        padding: 0px 0px;
+	        overflow: hidden;
+	    }
+	    .grouvee_box {
+	    	display:flex;
+	    	flex-wrap: wrap;
+	    	max-width: 450px;
+	    	margin:auto;
+	    	justify-content: center;
+	    }
+	    .grouvee_box>div {
+			min-width: 450px;
+	    	display:flex;
+	    	flex-wrap: wrap;
+	    	justify-content: center;
+	    }
+	    .grouvee_box>div>h2 {
+	    	font-family: tahoma;
+	    	min-width:450px;
+	    	text-align: center;
+	    }
+	    .grouvee_box>div>h2>a{
+	    	color: black;
+	    }
+	    #container {
+		    display: flex;
+		    justify-content: center;
+		    max-width: 1000px;
+		    margin: auto;
+		}
+	</style>
+	<div id="container">
+		<div class="grouvee_box">
+			<div id="grouvee_widget_141977">
+			</div>
+			<script src="https://www.grouvee.com/widgets/shelf/141977/?number=20" type="text/javascript" charset="utf-8"></script>
+			<div id="grouvee_widget_142193">
+			</div>
+			<script src="https://www.grouvee.com/widgets/shelf/142193/?number=20" type="text/javascript" charset="utf-8"></script>
+			<div id="grouvee_widget_142000">
+			</div>
+			<script src="https://www.grouvee.com/widgets/shelf/142000/?number=20" type="text/javascript" charset="utf-8"></script>
+			<div id="grouvee_widget_141979">
+			</div>
+			<script src="https://www.grouvee.com/widgets/shelf/141979/?number=20" type="text/javascript" charset="utf-8"></script>
+		</div>
+		<div class="grouvee_box">
+			<div id="grouvee_widget_141976">
+			</div>
+			<script src="https://www.grouvee.com/widgets/shelf/141976/?number=20" type="text/javascript" charset="utf-8"></script>
+			<div id="grouvee_widget_141978">
+			</div>
+			<script src="https://www.grouvee.com/widgets/shelf/141978/?number=20" type="text/javascript" charset="utf-8"></script>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function scrub(text) {
+			return text.split(' ').slice(1,-2).join(' ');
+		}
+		function fixlink(link){
+			return "http://grouvee.com/"+link.substring(8);
+		}
+		var elements = document.getElementsByTagName("h2");
+		for (element of elements){
+			element.firstElementChild.innerText = scrub(element.firstElementChild.innerText);
+			element.firstElementChild.href = fixlink(element.firstElementChild.href);
+		}	
+	</script>
+</body>
+</html>
