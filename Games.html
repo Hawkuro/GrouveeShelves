@@ -47,7 +47,11 @@
 		    margin: auto;
 		}
 	</style>
-	<div class="top_container">
+	<ul>
+		<li><a href="javascript:rudrSwitchTab('tb_1', 'active_games');" id="tb_1" class="tabmenu active">Active</a></li>
+		<li><a href="javascript:rudrSwitchTab('tb_2', 'archived_games');" id="tb_2" class="tabmenu">Archived</a></li>
+	</ul>
+	<div class="top_container tabcontent" id="active_games">
 		<div class="grouvee_box">
 			<div id="grouvee_widget_141977">
 			</div>
@@ -71,6 +75,7 @@
 			<script src="https://www.grouvee.com/widgets/shelf/141978/?number=20" type="text/javascript" charset="utf-8"></script>
 		</div>
 	</div>
+	<div class="tabcontent" id="archived_games">Test</div>
 	<script type="text/javascript">
 		function scrub(text) {
 			return text.split(' ').slice(1,-2).join(' ');
@@ -83,6 +88,24 @@
 			element.firstElementChild.innerText = scrub(element.firstElementChild.innerText);
 			element.firstElementChild.href = fixlink(element.firstElementChild.href);
 		}	
+		// Source for below: https://rudrastyh.com/javascript/tabs.html
+		function rudrSwitchTab(rudr_tab_id, rudr_tab_content) {
+			// first of all we get all tab content blocks (I think the best way to get them by class names)
+			var x = document.getElementsByClassName("tabcontent");
+			var i;
+			for (i = 0; i < x.length; i++) {
+				x[i].style.display = 'none'; // hide all tab content
+			}
+			document.getElementById(rudr_tab_content).style.display = 'flex'; // display the content of the tab we need
+		 
+			// now we get all tab menu items by class names (use the next code only if you need to highlight current tab)
+			var x = document.getElementsByClassName("tabmenu");
+			var i;
+			for (i = 0; i < x.length; i++) {
+				x[i].className = 'tabmenu'; 
+			}
+			document.getElementById(rudr_tab_id).className = 'tabmenu active';
+		}
 	</script>
 </body>
 </html>
