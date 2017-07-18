@@ -40,7 +40,7 @@
 	    .grouvee_box>div>h2>a{
 	    	color: black;
 	    }
-	    .top_container {
+	    .tabcontent {
 		    display: flex;
 		    justify-content: center;
 		    max-width: 1000px;
@@ -51,7 +51,7 @@
 		<li><a href="javascript:rudrSwitchTab('tb_1', 'active_games');" id="tb_1" class="tabmenu active">Active</a></li>
 		<li><a href="javascript:rudrSwitchTab('tb_2', 'archived_games');" id="tb_2" class="tabmenu">Archived</a></li>
 	</ul>
-	<div class="top_container tabcontent" id="active_games">
+	<div class="tabcontent" id="active_games">
 		<div class="grouvee_box">
 			<div id="grouvee_widget_141977">
 			</div>
@@ -75,7 +75,16 @@
 			<script src="https://www.grouvee.com/widgets/shelf/141978/?number=20" type="text/javascript" charset="utf-8"></script>
 		</div>
 	</div>
-	<div class="tabcontent" id="archived_games" style="display:none">Test</div>
+	<div class="tabcontent" id="archived_games">
+		<div class="grouvee_box">
+			<div id="grouvee_widget_141975">
+			</div>
+			<script src="https://www.grouvee.com/widgets/shelf/141975/?number=20" type="text/javascript" charset="utf-8"></script>
+			<div id="grouvee_widget_148530">
+			</div>
+			<script src="https://www.grouvee.com/widgets/shelf/148530/?number=20" type="text/javascript" charset="utf-8"></script>
+		</div>
+	</div>
 	<script type="text/javascript">
 		function scrub(text) {
 			return text.split(' ').slice(1,-2).join(' ');
@@ -106,6 +115,8 @@
 			}
 			document.getElementById(rudr_tab_id).className = 'tabmenu active';
 		}
+
+		document.getElementById("archived_games").style = "display:none";
 	</script>
 </body>
 </html>
