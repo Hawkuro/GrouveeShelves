@@ -10,7 +10,7 @@ I thus recommend you fork the project to create your own personalized page of sh
 
 ### Tabs
 
-First off, the page is split into two tabs, active and archived. The content of each tab is, unsurprisingly, contained in a .tabcontent div, which contains one or more .grouvee_box div, which are used to split the shelves into columns (the width of which need to be manually defined in CSS, if you can read CSS, this should be fairly easy to figure out).
+First off, the page is split into two tabs, active and archived. The content of each tab is, unsurprisingly, contained in a .tabcontent div, which contains one or more .grouvee_box div, which are used to split the shelves into columns.
 
 You can either keep the tabs as they are (easiest, just replace my shelves with your own), remove them (just remove the .tab_bar div), or edit the setup to your liking (won't help you there, can be done fairly easily if you know your HTML/CSS)
 
