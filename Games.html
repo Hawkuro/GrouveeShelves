@@ -89,10 +89,14 @@
 			element.firstElementChild.href = fixlink(element.firstElementChild.href);
 		}	*/
 
-		function cleanup(widget){
+		function cleanup(widget, isLast){
 			//alert(widget.childElementCount);
 			widget.firstElementChild.firstElementChild.innerText = scrub(widget.firstElementChild.firstElementChild.innerText);
 			widget.firstElementChild.firstElementChild.href = fixlink(widget.firstElementChild.firstElementChild.href);
+
+			if(isLast){
+				widget.parentElement.parentElement.style = "display:none";
+			}
 		}
 
 		function addChild(parent, type, className, id, href){
@@ -110,14 +114,14 @@
 			return child;
 		}
 
-		function addScript(parent, url, widget){
+		function addScript(parent, url, widget, isLast){
 			var script = document.createElement("script");
 			script.src = url;
 			script.type = "text/javascript";
 			script.charset = "utf-8";
 
 			if(widget){
-				script.addEventListener('load',function(){cleanup(document.getElementById(widget));});
+				script.addEventListener('load',function(){cleanup(document.getElementById(widget), isLast);});
 			}
 
 			parent.appendChild(script);
@@ -136,18 +140,20 @@
 		for(var tab in shelfTabs){
 			var tabButtonId = `tb_${index}`;
 			var tabId = `${tab.toLowerCase()}_games`;
-			addChild(tabs,"a","tabmenu"+(index === 1?" active":""), tabButtonId, `javascript:rudrSwitchTab('${tabButtonId}', '${tabId}');`).appendChild(document.createTextNode(tab));
+			addChild(tabs,"a","tabmenu"+(index == 1?" active":""), tabButtonId, `javascript:rudrSwitchTab('${tabButtonId}', '${tabId}');`).appendChild(document.createTextNode(tab));
 
 			var tabcontent = addChild(root,"div","tabcontent",tabId);
 
 			for(var column in shelfTabs[tab]){
+				var isLastColumn = index != 1 && (column == shelfTabs[tab].length - 1);
 				var gb = addChild(tabcontent, "div", "grouvee_box");
 
 				for(var shelf in shelfTabs[tab][column]){
+					var isLastShelf = isLastColumn && shelf == shelfTabs[tab][column].length - 1;
 					var shelfid = shelfTabs[tab][column][shelf];
 					var widgetname = `grouvee_widget_${shelfid}`
 					addChild(gb,"div",null,widgetname);
-					addScript(gb,`https:\/\/www.grouvee.com\/widgets\/shelf\/${shelfid}\/?number=20`, widgetname);
+					addScript(gb,`https:\/\/www.grouvee.com\/widgets\/shelf\/${shelfid}\/?number=20`, widgetname, isLastShelf);
 				}
 			}
 			index++;
@@ -172,7 +178,6 @@
 			document.getElementById(rudr_tab_id).className = 'tabmenu active';
 		}
 
-		//document.getElementById("archived_games").style = "display:none";
 	</script>
 	<!--div id="content">
 		<div id="tab_bar">
