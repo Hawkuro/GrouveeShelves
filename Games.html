@@ -83,14 +83,8 @@
 		function fixlink(link){
 			return "http://grouvee.com/"+link.substring(8);
 		}
-		/*var elements = document.getElementsByTagName("h2");
-		for (element of elements){
-			element.firstElementChild.innerText = scrub(element.firstElementChild.innerText);
-			element.firstElementChild.href = fixlink(element.firstElementChild.href);
-		}	*/
 
 		function cleanup(widget, isLast){
-			//alert(widget.childElementCount);
 			widget.firstElementChild.firstElementChild.innerText = scrub(widget.firstElementChild.firstElementChild.innerText);
 			widget.firstElementChild.firstElementChild.href = fixlink(widget.firstElementChild.firstElementChild.href);
 
@@ -158,7 +152,7 @@
 			}
 			index++;
 		}
-		//alert("init done");
+		
 		// Source for below: https://rudrastyh.com/javascript/tabs.html
 		function rudrSwitchTab(rudr_tab_id, rudr_tab_content) {
 			// first of all we get all tab content blocks (I think the best way to get them by class names)
@@ -179,45 +173,5 @@
 		}
 
 	</script>
-	<!--div id="content">
-		<div id="tab_bar">
-			<a href="javascript:rudrSwitchTab('tb_1', 'active_games');" id="tb_1" class="tabmenu active">Active</a>
-			<a href="javascript:rudrSwitchTab('tb_2', 'archived_games');" id="tb_2" class="tabmenu">Archived</a>
-		</div>
-		<div class="tabcontent" id="active_games">
-			<div class="grouvee_box">
-				<div id="grouvee_widget_141977">
-				</div>
-				<script src="https://www.grouvee.com/widgets/shelf/141977/?number=20" type="text/javascript" charset="utf-8"></script>
-				<div id="grouvee_widget_142193">
-				</div>
-				<script src="https://www.grouvee.com/widgets/shelf/142193/?number=20" type="text/javascript" charset="utf-8"></script>
-				<div id="grouvee_widget_142000">
-				</div>
-				<script src="https://www.grouvee.com/widgets/shelf/142000/?number=20" type="text/javascript" charset="utf-8"></script>
-				<div id="grouvee_widget_141979">
-				</div>
-				<script src="https://www.grouvee.com/widgets/shelf/141979/?number=20" type="text/javascript" charset="utf-8"></script>
-			</div>
-			<div class="grouvee_box">
-				<div id="grouvee_widget_141976">
-				</div>
-				<script src="https://www.grouvee.com/widgets/shelf/141976/?number=20" type="text/javascript" charset="utf-8"></script>
-				<div id="grouvee_widget_141978">
-				</div>
-				<script src="https://www.grouvee.com/widgets/shelf/141978/?number=20" type="text/javascript" charset="utf-8"></script>
-			</div>
-		</div>
-		<div class="tabcontent" id="archived_games">
-			<div class="grouvee_box">
-				<div id="grouvee_widget_141975">
-				</div>
-				<script src="https://www.grouvee.com/widgets/shelf/141975/?number=20" type="text/javascript" charset="utf-8"></script>
-				<div id="grouvee_widget_148530">
-				</div>
-				<script src="https://www.grouvee.com/widgets/shelf/148530/?number=20" type="text/javascript" charset="utf-8"></script>
-			</div>
-		</div>
-	</div-->
 </body>
 </html>
