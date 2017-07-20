@@ -77,6 +77,15 @@
 		}
 	</style>
 	<script type="text/javascript">
+
+		// ---- EDIT HERE ----
+		// Switch the shelves and tab names for your own:
+		var shelfTabs = {
+			"Active": [[141977,142193,142000,141979],[141976,141978]],
+			"Archived": [[141975,148530]]
+		};
+		// --- IGNORE THE REST ---
+
 		function scrub(text) {
 			return text.split(' ').slice(1,-2).join(' ');
 		}
@@ -84,11 +93,14 @@
 			return "http://grouvee.com/"+link.substring(8);
 		}
 
-		function cleanup(widget, isLast){
+		function cleanup(widget, isHidden){
+			if(isHidden){
+				widget.parentElement.parentElement.style = "display:flex";
+			}
 			widget.firstElementChild.firstElementChild.innerText = scrub(widget.firstElementChild.firstElementChild.innerText);
 			widget.firstElementChild.firstElementChild.href = fixlink(widget.firstElementChild.firstElementChild.href);
 
-			if(isLast){
+			if(isHidden){
 				widget.parentElement.parentElement.style = "display:none";
 			}
 		}
@@ -108,24 +120,19 @@
 			return child;
 		}
 
-		function addScript(parent, url, widget, isLast){
+		function addScript(parent, url, widget, isHidden){
 			var script = document.createElement("script");
 			script.src = url;
 			script.type = "text/javascript";
 			script.charset = "utf-8";
 
 			if(widget){
-				script.addEventListener('load',function(){cleanup(document.getElementById(widget), isLast);});
+				script.addEventListener('load',function(){cleanup(widget, isHidden);});
 			}
 
 			parent.appendChild(script);
 			return script;
 		}
-
-		var shelfTabs = {
-			"Active": [[141977,142193,142000,141979],[141976,141978]],
-			"Archived": [[141975,148530]]
-		};
 
 		var root = document.getElementsByTagName("body")[0];
 		var tabs = addChild(root,"div",null,"tab_bar");
@@ -139,20 +146,18 @@
 			var tabcontent = addChild(root,"div","tabcontent",tabId);
 
 			for(var column in shelfTabs[tab]){
-				var isLastColumn = index != 1 && (column == shelfTabs[tab].length - 1);
+				var isHiddenColumn = index != 1;
 				var gb = addChild(tabcontent, "div", "grouvee_box");
 
 				for(var shelf in shelfTabs[tab][column]){
-					var isLastShelf = isLastColumn && shelf == shelfTabs[tab][column].length - 1;
 					var shelfid = shelfTabs[tab][column][shelf];
-					var widgetname = `grouvee_widget_${shelfid}`
-					addChild(gb,"div",null,widgetname);
-					addScript(gb,`https:\/\/www.grouvee.com\/widgets\/shelf\/${shelfid}\/?number=20`, widgetname, isLastShelf);
+					var widget = addChild(gb,"div",null,`grouvee_widget_${shelfid}`);
+					addScript(gb,`https:\/\/www.grouvee.com\/widgets\/shelf\/${shelfid}\/?number=20`, widget, isHiddenColumn);
 				}
 			}
 			index++;
 		}
-		
+
 		// Source for below: https://rudrastyh.com/javascript/tabs.html
 		function rudrSwitchTab(rudr_tab_id, rudr_tab_content) {
 			// first of all we get all tab content blocks (I think the best way to get them by class names)
