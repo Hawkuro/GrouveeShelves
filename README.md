@@ -8,26 +8,21 @@ Of course, the shelves included in the repo are my own, and while it may indeed 
 
 I thus recommend you fork the project to create your own personalized page of shelves. The changes needed are fairly easy.
 
-### Tabs
+First off, open Games.html and head to line 83. There you'll see an object called shelfTabs that looks like this:
 
-First off, the page is split into two tabs, active and archived. The content of each tab is, unsurprisingly, contained in a .tabcontent div, which contains one or more .grouvee_box div, which are used to split the shelves into columns.
+    var shelfTabs = {
+        "Active": [[141977,142193,142000,141979],[141976,141978]],
+        "Archived": [[141975,148530]]
+    };
 
-You can either keep the tabs as they are (easiest, just replace my shelves with your own), remove them (just remove the .tab_bar div), or edit the setup to your liking (won't help you there, can be done fairly easily if you know your HTML/CSS)
+The string "Active" and "Archived" define the names of the tabs on the page. Each tab will have one or more column of shelves. In the active tab, the first column has four shelves, and the second has two. The archived tab has one column with two shelves.
 
-Myself, I've split the shelves into "Active" shelves, of games that I'm playing and intend to play in future, and "Archived" shelves, games I've finished or quit.
+To make it your own, replace my shelf ids with your own (detailed below), and mix up the tab names and tab/column/row number as you like. Everything is sized automagically, but you can of course take a look at the CSS to tweak the look and sizing.
 
-### Shelves
+### Shelf ids
 
-Inside the .grouvee_box divs you'll find the grouvee widgets, each widget looks like this:
-
-    <div id="grouvee_widget_[shelf id]">
-    </div>
-    <script src="https://www.grouvee.com/widgets/shelf/[shelf id]/?number=20" type="text/javascript" charset="utf-8"></script>
-
-This is an edited version of the widget as it appears on the Grouvee site, omitting the CSS (which is elsewhere in the file) and the initial shelf content. The widget will fetch the shelf content when the page is loaded.
-
-You'll need to replace the [shelf id] bits with the numerical id of the shelf. This can be found by going to the shelf's page and looking at the URL, which is formatted like so:
+Each shelf has an Id that you'll need to find on your profile. This can be found by going to the shelf's page and looking at the URL, which is formatted like so:
 
     https://www.grouvee.com/user/[username]/shelves/[shelf id]-[shelf name in lower kebab case]/?num=25
     
-Just copy the [shelf id] bit from the URL and place it in the two spots (marked in the HTML above with "[shelf id]") in the widget. Do this for each shelf and you're good to go.
+Just copy the [shelf id] bit from the URL and place it in the array where you want it to appear. Do this for each shelf you want and you're good to go.
