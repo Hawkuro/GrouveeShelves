@@ -84,6 +84,11 @@
 			"Active": [[141977,142193,142000,141979],[141976,141978]],
 			"Archived": [[141975,148530]]
 		};
+
+		var settings = {
+			hideEmptyShelves: true,
+			showTabBar: Object.keys(shelfTabs).length > 1
+		}
 		// --- IGNORE THE REST ---
 
 		function scrub(text) {
@@ -96,6 +101,10 @@
 		function cleanup(widget, isHidden){
 			widget.firstElementChild.firstElementChild.innerText = scrub(widget.firstElementChild.firstElementChild.innerText);
 			widget.firstElementChild.firstElementChild.href = fixlink(widget.firstElementChild.firstElementChild.href);
+
+			if(settings.hideEmptyShelves && widget.childElementCount == 1){
+				widget.style = "display:none"
+			}
 
 			if(isHidden){
 				widget.parentElement.parentElement.style = "display:none";
@@ -153,13 +162,19 @@
 		}
 
 		var root = document.getElementsByTagName("body")[0];
-		var tabs = addChild(root,"div",null,"tab_bar");
 		var index = 1;
 
+		if(settings.showTabBar){
+			var tabs = addChild(root,"div",null,"tab_bar");
+		}
+
 		for(var tab in shelfTabs){
-			var tabButtonId = `tb_${index}`;
 			var tabId = `${tab.toLowerCase()}_games`;
-			addChild(tabs,"a","tabmenu"+(index == 1?" active":""), tabButtonId, `javascript:rudrSwitchTab('${tabButtonId}', '${tabId}');`).appendChild(document.createTextNode(tab));
+
+			if(settings.showTabBar){
+				var tabButtonId = `tb_${index}`;
+				addChild(tabs,"a","tabmenu"+(index == 1?" active":""), tabButtonId, `javascript:rudrSwitchTab('${tabButtonId}', '${tabId}');`).appendChild(document.createTextNode(tab));
+			}
 
 			var tabcontent = addChild(root,"div","tabcontent",tabId);
 
