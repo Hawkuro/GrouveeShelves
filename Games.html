@@ -76,56 +76,98 @@
 			border-bottom: 3px solid #dd4b39;
 		}
 	</style>
-	<div id="tab_bar">
-		<a href="javascript:rudrSwitchTab('tb_1', 'active_games');" id="tb_1" class="tabmenu active">Active</a>
-		<a href="javascript:rudrSwitchTab('tb_2', 'archived_games');" id="tb_2" class="tabmenu">Archived</a>
-	</div>
-	<div class="tabcontent" id="active_games">
-		<div class="grouvee_box">
-			<div id="grouvee_widget_141977">
-			</div>
-			<script src="https://www.grouvee.com/widgets/shelf/141977/?number=20" type="text/javascript" charset="utf-8"></script>
-			<div id="grouvee_widget_142193">
-			</div>
-			<script src="https://www.grouvee.com/widgets/shelf/142193/?number=20" type="text/javascript" charset="utf-8"></script>
-			<div id="grouvee_widget_142000">
-			</div>
-			<script src="https://www.grouvee.com/widgets/shelf/142000/?number=20" type="text/javascript" charset="utf-8"></script>
-			<div id="grouvee_widget_141979">
-			</div>
-			<script src="https://www.grouvee.com/widgets/shelf/141979/?number=20" type="text/javascript" charset="utf-8"></script>
-		</div>
-		<div class="grouvee_box">
-			<div id="grouvee_widget_141976">
-			</div>
-			<script src="https://www.grouvee.com/widgets/shelf/141976/?number=20" type="text/javascript" charset="utf-8"></script>
-			<div id="grouvee_widget_141978">
-			</div>
-			<script src="https://www.grouvee.com/widgets/shelf/141978/?number=20" type="text/javascript" charset="utf-8"></script>
-		</div>
-	</div>
-	<div class="tabcontent" id="archived_games">
-		<div class="grouvee_box">
-			<div id="grouvee_widget_141975">
-			</div>
-			<script src="https://www.grouvee.com/widgets/shelf/141975/?number=20" type="text/javascript" charset="utf-8"></script>
-			<div id="grouvee_widget_148530">
-			</div>
-			<script src="https://www.grouvee.com/widgets/shelf/148530/?number=20" type="text/javascript" charset="utf-8"></script>
-		</div>
-	</div>
 	<script type="text/javascript">
+
+		// ---- EDIT HERE ----
+		// Switch the shelves and tab names for your own:
+		var shelfTabs = {
+			"Active": [[141977,142193,142000,141979],[141976,141978]],
+			"Archived": [[141975,148530]]
+		};
+		// --- IGNORE THE REST ---
+
 		function scrub(text) {
 			return text.split(' ').slice(1,-2).join(' ');
 		}
 		function fixlink(link){
 			return "http://grouvee.com/"+link.substring(8);
 		}
-		var elements = document.getElementsByTagName("h2");
-		for (element of elements){
-			element.firstElementChild.innerText = scrub(element.firstElementChild.innerText);
-			element.firstElementChild.href = fixlink(element.firstElementChild.href);
-		}	
+
+		function cleanup(widget, isHidden){
+			widget.firstElementChild.firstElementChild.innerText = scrub(widget.firstElementChild.firstElementChild.innerText);
+			widget.firstElementChild.firstElementChild.href = fixlink(widget.firstElementChild.firstElementChild.href);
+
+			if(isHidden){
+				widget.parentElement.parentElement.style = "display:none";
+			}
+		}
+
+		function addChild(parent, type, className, id, href){
+			var child = document.createElement(type||"div");
+			if(className){
+				child.className = className;
+			}
+			if(id){
+				child.id = id;
+			}
+			if(href){
+				child.href = href;
+			}
+			parent.appendChild(child);
+			return child;
+		}
+
+		function generateTabPage(grouvee_box, columns, hideTab, column, row){
+			column = column || 0;
+			row = row || 0;
+
+			if(column > 0 && row == 0){
+				grouvee_box = addChild(grouvee_box.parentElement, "div", "grouvee_box");
+			}
+
+			var lastWidget = false;
+			var nextRow = row+1 < columns[column].length ? row+1 : 0;
+			var nextColumn = nextRow == 0 ? column + 1 : column;
+
+			if(nextColumn >= columns.length){
+				lastWidget = true;
+			}
+
+			var shelfid = columns[column][row];
+			var widget = addChild(grouvee_box,"div",null,`grouvee_widget_${shelfid}`);
+
+			var script = document.createElement("script");
+			script.src = `https:\/\/www.grouvee.com\/widgets\/shelf\/${shelfid}\/?number=20`;
+			script.type = "text/javascript";
+			script.charset = "utf-8";
+
+			script.addEventListener('load',function(){
+				cleanup(widget, hideTab && lastWidget);
+				if(!lastWidget){
+					generateTabPage(grouvee_box,columns,hideTab,nextColumn,nextRow)
+				}
+			});
+
+			grouvee_box.appendChild(script);
+			return script;
+		}
+
+		var root = document.getElementsByTagName("body")[0];
+		var tabs = addChild(root,"div",null,"tab_bar");
+		var index = 1;
+
+		for(var tab in shelfTabs){
+			var tabButtonId = `tb_${index}`;
+			var tabId = `${tab.toLowerCase()}_games`;
+			addChild(tabs,"a","tabmenu"+(index == 1?" active":""), tabButtonId, `javascript:rudrSwitchTab('${tabButtonId}', '${tabId}');`).appendChild(document.createTextNode(tab));
+
+			var tabcontent = addChild(root,"div","tabcontent",tabId);
+
+			generateTabPage(addChild(tabcontent, "div", "grouvee_box"),shelfTabs[tab],index!=1);
+
+			index++;
+		}
+
 		// Source for below: https://rudrastyh.com/javascript/tabs.html
 		function rudrSwitchTab(rudr_tab_id, rudr_tab_content) {
 			// first of all we get all tab content blocks (I think the best way to get them by class names)
@@ -145,7 +187,6 @@
 			document.getElementById(rudr_tab_id).className = 'tabmenu active';
 		}
 
-		document.getElementById("archived_games").style = "display:none";
 	</script>
 </body>
 </html>
