@@ -26,3 +26,10 @@ Each shelf has an Id that you'll need to find on your profile. This can be found
     https://www.grouvee.com/user/[username]/shelves/[shelf id]-[shelf name in lower kebab case]/?num=25
     
 Just copy the [shelf id] bit from the URL and place it in the array where you want it to appear. Do this for each shelf you want and you're good to go.
+
+### Settings
+
+Below the shelf tab lists is a small settings object with two settings:
+
+ - `hideEmptyShelves`: Whether or not empty shelves are shown or hidden (default: hide empty shelves)
+ - `showTabBar`: Whether or not the tab bar is shown (default: show if there are more than one tab)
