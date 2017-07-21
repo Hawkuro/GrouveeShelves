@@ -15,7 +15,7 @@ First off, open Games.html and head to line 83. There you'll see an object calle
         "Archived": [[141975,148530]]
     };
 
-The string "Active" and "Archived" define the names of the tabs on the page. Each tab will have one or more column of shelves. In the active tab, the first column has four shelves, and the second has two. The archived tab has one column with two shelves.
+The strings "Active" and "Archived" define the names of the tabs on the page. Each tab will have one or more column of shelves. In the active tab, the first column has four shelves, and the second has two. The archived tab has one column with two shelves.
 
 To make it your own, replace my shelf ids with your own (detailed below), and mix up the tab names and tab/column/row number as you like. Everything is sized automagically, but you can of course take a look at the CSS to tweak the look and sizing.
 
