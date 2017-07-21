@@ -94,9 +94,6 @@
 		}
 
 		function cleanup(widget, isHidden){
-			if(isHidden){
-				widget.parentElement.parentElement.style = "display:flex";
-			}
 			widget.firstElementChild.firstElementChild.innerText = scrub(widget.firstElementChild.firstElementChild.innerText);
 			widget.firstElementChild.firstElementChild.href = fixlink(widget.firstElementChild.firstElementChild.href);
 
@@ -120,17 +117,38 @@
 			return child;
 		}
 
-		function addScript(parent, url, widget, isHidden){
+		function generateTabPage(grouvee_box, columns, hideTab, column, row){
+			column = column || 0;
+			row = row || 0;
+
+			if(column > 0 && row == 0){
+				grouvee_box = addChild(grouvee_box.parentElement, "div", "grouvee_box");
+			}
+
+			var lastWidget = false;
+			var nextRow = row+1 < columns[column].length ? row+1 : 0;
+			var nextColumn = nextRow == 0 ? column + 1 : column;
+
+			if(nextColumn >= columns.length){
+				lastWidget = true;
+			}
+
+			var shelfid = columns[column][row];
+			var widget = addChild(grouvee_box,"div",null,`grouvee_widget_${shelfid}`);
+
 			var script = document.createElement("script");
-			script.src = url;
+			script.src = `https:\/\/www.grouvee.com\/widgets\/shelf\/${shelfid}\/?number=20`;
 			script.type = "text/javascript";
 			script.charset = "utf-8";
 
-			if(widget){
-				script.addEventListener('load',function(){cleanup(widget, isHidden);});
-			}
+			script.addEventListener('load',function(){
+				cleanup(widget, hideTab && lastWidget);
+				if(!lastWidget){
+					generateTabPage(grouvee_box,columns,hideTab,nextColumn,nextRow)
+				}
+			});
 
-			parent.appendChild(script);
+			grouvee_box.appendChild(script);
 			return script;
 		}
 
@@ -145,16 +163,8 @@
 
 			var tabcontent = addChild(root,"div","tabcontent",tabId);
 
-			for(var column in shelfTabs[tab]){
-				var isHiddenColumn = index != 1;
-				var gb = addChild(tabcontent, "div", "grouvee_box");
+			generateTabPage(addChild(tabcontent, "div", "grouvee_box"),shelfTabs[tab],index!=1);
 
-				for(var shelf in shelfTabs[tab][column]){
-					var shelfid = shelfTabs[tab][column][shelf];
-					var widget = addChild(gb,"div",null,`grouvee_widget_${shelfid}`);
-					addScript(gb,`https:\/\/www.grouvee.com\/widgets\/shelf\/${shelfid}\/?number=20`, widget, isHiddenColumn);
-				}
-			}
 			index++;
 		}
 
