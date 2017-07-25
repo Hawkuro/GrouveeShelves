@@ -96,16 +96,16 @@
 	</style>
 	<script type="text/javascript">
 
-		function scrub(text) {
+		function extractShelfName(text) {
 			return text.split(' ').slice(1,-2).join(' ');
 		}
-		function fixlink(link){
+		function fixLink(link){
 			return "http://grouvee.com/"+link.substring(8);
 		}
 
 		function cleanup(widget, hideTabAfterLoad){
-			widget.firstElementChild.firstElementChild.innerText = scrub(widget.firstElementChild.firstElementChild.innerText);
-			widget.firstElementChild.firstElementChild.href = fixlink(widget.firstElementChild.firstElementChild.href);
+			widget.firstElementChild.firstElementChild.innerText = extractShelfName(widget.firstElementChild.firstElementChild.innerText);
+			widget.firstElementChild.firstElementChild.href = fixLink(widget.firstElementChild.firstElementChild.href);
 
 			if(settings.hideEmptyShelves && widget.childElementCount == 1){
 				widget.style = "display:none"
