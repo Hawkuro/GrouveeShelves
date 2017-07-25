@@ -5,6 +5,23 @@
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
+	<script type="text/javascript">
+		// ---- EDIT HERE ----
+		// Switch the shelves and tab names for your own:
+		var shelfTabs = {
+			"Active": [[141977,142193,142000,141979],[141976,141978]],
+			"Archived": [[141975,148530]]
+		};
+
+		var settings = {
+			hideEmptyShelves: true,
+			showTabBar: Object.keys(shelfTabs).length > 1,
+			initialTab: 1
+		}
+		// --- IGNORE THE REST ---
+		// Unless you want to change something, I don't own you
+		// Go ham
+	</script>
 	<style type="text/css" media="screen">
 		body {
 			margin:0;
@@ -77,20 +94,6 @@
 		}
 	</style>
 	<script type="text/javascript">
-
-		// ---- EDIT HERE ----
-		// Switch the shelves and tab names for your own:
-		var shelfTabs = {
-			"Active": [[141977,142193,142000,141979],[141976,141978]],
-			"Archived": [[141975,148530]]
-		};
-
-		var settings = {
-			hideEmptyShelves: true,
-			showTabBar: Object.keys(shelfTabs).length > 1,
-			initialTab: 1
-		}
-		// --- IGNORE THE REST ---
 
 		function scrub(text) {
 			return text.split(' ').slice(1,-2).join(' ');
