@@ -16,7 +16,8 @@
 		var settings = {
 			hideEmptyShelves: true,
 			showTabBar: Object.keys(shelfTabs).length > 1,
-			initialTab: 1
+			initialTab: 1,
+			root: document.getElementsByTagName("body")[0]
 		}
 		// --- IGNORE THE REST ---
 		// Unless you want to change something, I don't own you
@@ -102,7 +103,7 @@
 			return "http://grouvee.com/"+link.substring(8);
 		}
 
-		function cleanup(widget, isHidden){
+		function cleanup(widget, hideTabAfterLoad){
 			widget.firstElementChild.firstElementChild.innerText = scrub(widget.firstElementChild.firstElementChild.innerText);
 			widget.firstElementChild.firstElementChild.href = fixlink(widget.firstElementChild.firstElementChild.href);
 
@@ -110,7 +111,7 @@
 				widget.style = "display:none"
 			}
 
-			if(isHidden){
+			if(hideTabAfterLoad){
 				widget.parentElement.parentElement.style = "display:none";
 			}
 		}
@@ -165,11 +166,10 @@
 			return script;
 		}
 
-		var root = document.getElementsByTagName("body")[0];
 		var tabIndex = 1;
 
 		if(settings.showTabBar){
-			var tabs = addChild(root,"div",null,"tab_bar");
+			var tabs = addChild(settings.root,"div",null,"tab_bar");
 		}
 
 		function isInitialTab(index){
@@ -184,7 +184,7 @@
 				addChild(tabs,"a","tabmenu"+(isInitialTab(tabIndex)?" active":""), tabButtonId, `javascript:rudrSwitchTab('${tabButtonId}', '${tabId}');`).appendChild(document.createTextNode(tab));
 			}
 
-			var tabcontent = addChild(root,"div","tabcontent",tabId);
+			var tabcontent = addChild(settings.root,"div","tabcontent",tabId);
 
 			generateTabPage(addChild(tabcontent, "div", "grouvee_box"),shelfTabs[tab],!isInitialTab(tabIndex));
 
