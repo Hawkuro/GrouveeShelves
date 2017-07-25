@@ -8,7 +8,7 @@ Of course, the shelves included in the repo are my own, and while it may indeed 
 
 I thus recommend you fork the project to create your own personalized page of shelves. The changes needed are fairly easy.
 
-First off, open Games.html and head to line 83. There you'll see an object called shelfTabs that looks like this:
+First off, open Games.html and head to line 11. There you'll see an object called shelfTabs that looks like this:
 
     var shelfTabs = {
         "Active": [[141977,142193,142000,141979],[141976,141978]],
@@ -29,7 +29,8 @@ Just copy the [shelf id] bit from the URL and place it in the array where you wa
 
 ### Settings
 
-Below the shelf tab lists is a small settings object with two settings:
+Below the shelf tab lists is a small settings object with three settings:
 
  - `hideEmptyShelves`: Whether or not empty shelves are shown or hidden (default: hide empty shelves)
  - `showTabBar`: Whether or not the tab bar is shown (default: show if there are more than one tab)
+ - `initialTab`: The index (starting at 1) of the tab that is open when the page is first loaded, default 1
