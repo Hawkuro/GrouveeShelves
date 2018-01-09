@@ -17,7 +17,6 @@
 		var settings = {
 			hideEmptyShelves: true,
 			showTabBar: Object.keys(shelfTabs).length > 1,
-			fixShelfLinks: true,
 			initialTab: 1,
 			root: document.getElementsByTagName("body")[0]
 		}
@@ -102,14 +101,14 @@
 			return text.split(' ').slice(1,-2).join(' ');
 		}
 		function fixLink(link){
-			return "https://www.grouvee.com/"+link.substring(8);
+			if(link.startsWith("file:///")){
+				return "https://www.grouvee.com/"+link.substring(8);
+			}
 		}
 
 		function cleanup(widget, hideTabAfterLoad){
 			widget.firstElementChild.firstElementChild.innerText = extractShelfName(widget.firstElementChild.firstElementChild.innerText);
-			if(settings.fixShelfLinks){
-				widget.firstElementChild.firstElementChild.href = fixLink(widget.firstElementChild.firstElementChild.href);
-			}
+			widget.firstElementChild.firstElementChild.href = fixLink(widget.firstElementChild.firstElementChild.href);
 
 			if(settings.hideEmptyShelves && widget.childElementCount == 1){
 				widget.style = "display:none"

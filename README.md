@@ -33,6 +33,5 @@ Below the shelf tab lists is a small settings object with some settings:
 
  - `hideEmptyShelves`: Whether or not empty shelves are shown or hidden (default: hide empty shelves)
  - `showTabBar`: Whether or not the tab bar is shown (default: show if there are more than one tab)
- - `fixShelfLinks`: Whether or not to fix shelf links, `true` if hosting locally through `file://` protocol. (default: fix them)
  - `initialTab`: The index (starting at 1) of the tab that is open when the page is first loaded (default: 1)
  - `root`: The element to which the tabs and content will be added, for extensibility (default: the `<body>` element)
