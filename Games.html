@@ -104,6 +104,7 @@
 			if(link.startsWith("file:///")){
 				return "https://www.grouvee.com/"+link.substring(8);
 			}
+			return link;
 		}
 
 		function cleanup(widget, hideTabAfterLoad){
