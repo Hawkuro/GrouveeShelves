@@ -10,13 +10,13 @@
 		// Switch the shelves and tab names for your own:
 		var shelfTabs = {
 			"Active": [[141977,142193,142000,141979],[141976,141978]],
+			"Visual Novels": [[262456, 262457], [262458, 262459]],
 			"Archived": [[141975,148530]]
 		};
 
 		var settings = {
 			hideEmptyShelves: true,
 			showTabBar: Object.keys(shelfTabs).length > 1,
-			fixShelfLinks: false,
 			initialTab: 1,
 			root: document.getElementsByTagName("body")[0]
 		}
@@ -101,14 +101,14 @@
 			return text.split(' ').slice(1,-2).join(' ');
 		}
 		function fixLink(link){
-			return "https://www.grouvee.com/"+link.substring(8);
+			if(link.startsWith("file:///")){
+				return "https://www.grouvee.com/"+link.substring(8);
+			}
 		}
 
 		function cleanup(widget, hideTabAfterLoad){
 			widget.firstElementChild.firstElementChild.innerText = extractShelfName(widget.firstElementChild.firstElementChild.innerText);
-			if(settings.fixShelfLinks){
-				widget.firstElementChild.firstElementChild.href = fixLink(widget.firstElementChild.firstElementChild.href);
-			}
+			widget.firstElementChild.firstElementChild.href = fixLink(widget.firstElementChild.firstElementChild.href);
 
 			if(settings.hideEmptyShelves && widget.childElementCount == 1){
 				widget.style = "display:none"
