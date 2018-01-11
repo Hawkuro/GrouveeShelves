@@ -177,7 +177,7 @@
 		}
 
 		function initialHash(){
-			return parseInt(window.location.hash.substring(1))
+			return parseInt(top.window.location.hash.substring(1))
 		}
 
 		settings.initialTab = initialHash() || settings.initialTab
@@ -219,7 +219,7 @@
 			}
 			document.getElementById(rudr_tab_id).className = 'tabmenu active';
 
-			window.location.hash = "#"+rudr_tab_id.substring(3)
+			top.window.location.hash = "#"+rudr_tab_id.substring(3)
 		}
 
 	</script>
