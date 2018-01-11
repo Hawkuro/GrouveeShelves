@@ -176,6 +176,12 @@
 			var tabs = addChild(settings.root,"div",null,"tab_bar");
 		}
 
+		function initialHash(){
+			return parseInt(window.location.hash.substring(1))
+		}
+
+		settings.initialTab = initialHash() || settings.initialTab
+
 		function isInitialTab(index){
 			return index == settings.initialTab
 		}
@@ -212,6 +218,8 @@
 				x[i].className = 'tabmenu'; 
 			}
 			document.getElementById(rudr_tab_id).className = 'tabmenu active';
+
+			window.location.hash = "#"+rudr_tab_id.substring(3)
 		}
 
 	</script>
