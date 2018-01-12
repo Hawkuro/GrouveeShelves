@@ -14,10 +14,16 @@
 			"Archived": [[141975,148530]]
 		};
 
+		hashWindow = top.window
+
+		function initialHash(){
+			return parseInt(hashWindow.location.hash.substring(1))
+		}
+
 		var settings = {
 			hideEmptyShelves: true,
 			showTabBar: Object.keys(shelfTabs).length > 1,
-			initialTab: 1,
+			initialTab: initialHash() || 1,
 			root: document.getElementsByTagName("body")[0]
 		}
 		// --- IGNORE THE REST ---
@@ -176,12 +182,6 @@
 			var tabs = addChild(settings.root,"div",null,"tab_bar");
 		}
 
-		function initialHash(){
-			return parseInt(top.window.location.hash.substring(1))
-		}
-
-		settings.initialTab = initialHash() || settings.initialTab
-
 		function isInitialTab(index){
 			return index == settings.initialTab
 		}
@@ -219,7 +219,7 @@
 			}
 			document.getElementById(rudr_tab_id).className = 'tabmenu active';
 
-			top.window.location.hash = "#"+rudr_tab_id.substring(3)
+			hashWindow.location.hash = "#"+rudr_tab_id.substring(3)
 		}
 
 	</script>

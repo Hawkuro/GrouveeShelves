@@ -29,9 +29,9 @@ Just copy the [shelf id] bit from the URL and place it in the array where you wa
 
 ### Settings
 
-Below the shelf tab lists is a small settings object with some settings:
+Below the shelf tab lists is the hashWindow object, which points to the DOM `window` where the URL hash for the tab number should be written and read (default: the top level window, i.e. what's in the URL bar. Not the current iframe.). Below that, past a helper function is a small settings object with some settings:
 
  - `hideEmptyShelves`: Whether or not empty shelves are shown or hidden (default: hide empty shelves)
  - `showTabBar`: Whether or not the tab bar is shown (default: show if there are more than one tab)
- - `initialTab`: The index (starting at 1) of the tab that is open when the page is first loaded (default: 1)
+ - `initialTab`: The index (starting at 1) of the tab that is open when the page is first loaded (default: 1 or, if present, the tab number in the URL hash)
  - `root`: The element to which the tabs and content will be added, for extensibility (default: the `<body>` element)
