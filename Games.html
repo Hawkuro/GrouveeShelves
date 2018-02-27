@@ -24,7 +24,8 @@
 			hideEmptyShelves: true,
 			showTabBar: Object.keys(shelfTabs).length > 1,
 			initialTab: initialHash() || 1,
-			root: document.getElementsByTagName("body")[0]
+			root: document.getElementsByTagName("body")[0],
+			shelfGameLimit: 1000000
 		}
 		// --- IGNORE THE REST ---
 		// Unless you want to change something, I don't own you
@@ -161,7 +162,7 @@
 			var widget = addChild(grouvee_box,"div",null,`grouvee_widget_${shelfid}`);
 
 			var script = document.createElement("script");
-			script.src = `https:\/\/www.grouvee.com\/widgets\/shelf\/${shelfid}\/?number=20`;
+			script.src = `https:\/\/www.grouvee.com\/widgets\/shelf\/${shelfid}\/?number=${settings.shelfGameLimit}`;
 			script.type = "text/javascript";
 			script.charset = "utf-8";
 

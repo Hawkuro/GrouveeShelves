@@ -35,3 +35,4 @@ Below the shelf tab lists is the hashWindow object, which points to the DOM `win
  - `showTabBar`: Whether or not the tab bar is shown (default: show if there are more than one tab)
  - `initialTab`: The index (starting at 1) of the tab that is open when the page is first loaded (default: 1 or, if present, the tab number in the URL hash)
  - `root`: The element to which the tabs and content will be added, for extensibility (default: the `<body>` element)
+ - `shelfGameLimit`: The maximum number of games fetched and displayed per shelf, only seems to work with custom shelves
